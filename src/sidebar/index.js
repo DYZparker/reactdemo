@@ -17,30 +17,40 @@ import {
  } from './style';
 
 class Sidebar extends Component {
-    getList = () => {
+    getList() {
         const {list, handleChangeShow } = this.props;
         const newList = list.toJS();
         return newList.map( (item) => {
             if (item.child) {
                 return (
                     <Fragment key={item.id}>
-                        <Link to='/detail'>
-                            <NavItem onClick={()=>handleChangeShow(item, newList)}>
+                        <NavItem onClick={()=>handleChangeShow(item, newList)}>
+                            <Link to='/detail' className='linkParent'>
                                 {item.title}
-                                <CSSTransition
-                                    in={item.show}
-                                    timeout={300}
-                                    classNames='icon'
-                                >
-                                    <i className={item.show ? 'iconfont reverse' : 'iconfont'}>&#xe600;</i>
-                                </CSSTransition>
-                            </NavItem>
                             </Link>
-                        {item.show && item.child.map( (i) => <NavItemChild key={i.id}>{i.title}</NavItemChild> )}
+                            <CSSTransition
+                                in={item.show}
+                                timeout={300}
+                                classNames='icon'
+                            >
+                                <i className={item.show ? 'iconfont reverse' : 'iconfont'}>&#xe600;</i>
+                            </CSSTransition>
+                        </NavItem>
+                        {item.show && item.child.map( (i) => 
+                            <NavItemChild key={i.id}>
+                                <Link to='/detail' className='linkChild'>
+                                    {i.title}
+                                </Link>
+                            </NavItemChild>
+                        )}
                     </Fragment>
                 )
             }
-            return <NavItem onClick={()=>handleChangeShow(item, newList)} key={item.id}>{item.title}</NavItem>
+            return <NavItem onClick={()=>handleChangeShow(item, newList)} key={item.id}>
+                        <Link to='/detail' className={item.show ? 'linkParent selected' : 'linkParent'}>
+                            {item.title}
+                        </Link>
+                    </NavItem>
         })
     }
 
@@ -106,6 +116,18 @@ class Sidebar extends Component {
             </CSSTransition>
         )
     }
+
+    componentDidMount() {
+        this.bindEvents()
+    }
+
+    componentWillUnmount() {
+        window.removeEventListener('resize', this.props.changeResizeSideShow)
+    }
+    
+    bindEvents() {
+        window.addEventListener('resize', this.props.changeResizeSideShow)
+    }
 }
 
 const mapStateToProps = (state) => {
@@ -122,10 +144,17 @@ const mapDispatchToProps = (dispatch) => {
         handleToggle (toggle) {
             dispatch(actionCreators.changeToggle(!toggle))
         },
+        changeResizeSideShow() {
+            if(document.documentElement.clientWidth < 1200) {
+                dispatch(actionCreators.changeToggle(true))
+            }else {
+                dispatch(actionCreators.changeToggle(false))
+            }
+        },
         handleChangeShow (item, newList) {
             const show = !item.show
             const list = [...newList]
-            list.forEach((i) => {i.show = false})
+            list.forEach((i) => i.show = false)
             list[newList.indexOf(item)].show = show
             dispatch(actionCreators.changeShow(list))
         },
@@ -134,5 +163,7 @@ const mapDispatchToProps = (dispatch) => {
         }
     }
 }
+
+mapDispatchToProps()
 
 export default connect(mapStateToProps, mapDispatchToProps)(Sidebar);

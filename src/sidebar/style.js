@@ -100,23 +100,28 @@ export const Nav = styled.div`
 `;
 
 export const NavItem = styled.div`
-    color: #3d4449;
+    display: flex;
+    justify-content: space-between;
     padding: 1em 0;
     border-top: solid 1px rgba(210, 215, 217, 0.75);
-    cursor: pointer;
     transition: all 0.4s ease;
-    :hover {
-        color: #f56a6a;
-        text-shadow: 0.5px 0 1px #f56a6a;
-    }
+    .linkParent {
+        display: block;
+        flex-grow: 9;
+        color: #3d4449;
+        text-decoration: none;
+        &:hover {
+            color: #f56a6a;
+            text-shadow: 0.5px 0 1px #f56a6a;
+        }
     }
     :first-of-type {
         border-style: none;
     }
     i {
         display: inline-block;
-        position: absolute;
-        right: 2em;
+        flex-grow: 1;
+        text-align: center;
         transform-origin: center;
         &.reverse {
             transform:rotate(-180deg);
@@ -133,14 +138,18 @@ export const NavItem = styled.div`
 `
 
 export const NavItemChild = styled.div`
-    color: #9fa3a6;
     font-size: 0.9em;
-    margin: 1em;
+    margin: 0 0 1.2em 2em;
     cursor: pointer;
-    transition: all 0.4s ease;
-    :hover {
-        color: #f56a6a;
-        text-shadow: 0.5px 0.5px 1px #f56a6a;
+    transition: all 1s ease;
+    .linkChild {
+        display: block;
+        color: #9fa3a6;
+        text-decoration: none;
+        &:hover {
+            color: #f56a6a;
+            text-shadow: 0.5px 0.5px 1px #f56a6a;
+        }
     }
 `
 

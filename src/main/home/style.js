@@ -18,22 +18,22 @@ export const Introduction = styled.div`
 export const ContantWrap = styled.div`
     margin: 5em 0;
     display: flex;
+    flex-wrap: wrap-reverse;
 `;
 
 export const Img = styled.div`
     flex-grow: 1;
-    flex-shrink: 1;
-    width: 50%;
-    margin-left: 4em;
+    flex-basis: 300px;
+    min-height: 200px;
     border-radius: 1em;
     background: url(${logoPic}) center no-repeat;
     background-size: contain;
 `;
 
 export const Contant = styled.div`
-    flex-grow: 0;
-    flex-shrink: 0;
-    width: 50%;
+    flex-grow: 1;
+    flex-basis: 300px;
+    padding: 2em;
     h1 {
         color: #3d4449;
         font-size: 3em;
@@ -67,18 +67,24 @@ export const Summary = styled.div`
 export const Sumbody = styled.div`
     display: flex;
     flex-wrap: wrap;
+    justify-content: space-between;
     margin-bottom: 3em;
 `;
 
 export const Sumarticle = styled.div`
+    flex-grow: 1;
+    flex-basis: 300px;
+    min-width: 250px;
+    max-height: 200px;
+    min-height: 150px;
     display: flex;
-    width: 45%;
     align-items: center;
-    margin: 5% 5% 2% 0;
+    padding: 2em;
     div {
         width: 100%;
         flex-grow: 1;
         flex-shrink: 1;
+        padding-left: 2em;
         h3 {
             color: #3d4449;
             font-size: 1.3em;
@@ -99,7 +105,6 @@ export const Sumarticle = styled.div`
         height: 6em;
         text-align: center;
         line-height: 6em;
-        margin: 0 3em;
         position: relative;
         i {
             color: #f56a6a;
@@ -135,16 +140,22 @@ export const Picture = styled.div`
 export const Picbody = styled.div`
     display: flex;
     flex-wrap: wrap;
+    justify-content: space-between;
     margin-bottom: 3em;
 `;
 
 export const Picarticle = styled.div`
+    flex-grow: 1;
+    flex-basis: 300px;
+    min-width: 250px;
+    max-height: 400px;
+    min-height: 40px;
     display: flex;
     flex-direction: column;
     width: 45%;
     height: 25em;
     align-items: center;
-    margin: 5% 5% 2% 0;
+    padding: 2em;
     div {
         width: 90%;
         flex-grow: 1;
